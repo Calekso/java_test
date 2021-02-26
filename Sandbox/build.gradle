@@ -1,3 +1,3 @@
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = "my.pkg.sandbox.Myfirst1"
+mainClassName = "my.pkg.sandbox.MyFirst1"
