@@ -1,5 +1,6 @@
 package my.pkg.sandbox;
 
+
 public class MyFirst1 {
 
   public static void main(String[] args) {
@@ -7,23 +8,25 @@ public class MyFirst1 {
     hello("World");
     hello("user");
 
-    int l = 6;
+    Sqare s = new Sqare(7);
+    System.out.println("Площадь квадрата со стороной " + s.l + " = " + area(s));
 
-    int a = 2;
-    int b= 3;
-
-    System.out.println("Площадь квадрата со стороной " + l + " = " + area(l));
-    System.out.println("Площадь прямоугольника со сторонами " + a + " и " + b +  " = " + area(a, b));
+    Rect r = new Rect(2,4);
+    System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + area(r));
   }
 
   public static void hello(String name) {
+
     System.out.println("Hello, " + name + "!");
   }
 
-  public static double area(double ars) {
-    return ars * ars;
+  public static double area(Sqare s) {
+
+    return s.l * s.l;
   }
-  public static double area(double ars1, double ars2) {
-    return ars1 * ars2;
+
+  public static double area(Rect r) {
+
+    return r.a * r.b;
   }
 }
