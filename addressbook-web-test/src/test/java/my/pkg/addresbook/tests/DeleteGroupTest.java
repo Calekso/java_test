@@ -1,4 +1,4 @@
-package my.pkg.addresbook;
+package my.pkg.addresbook.tests;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
@@ -9,11 +9,11 @@ public class DeleteGroupTest extends TestBase {
   @Test
   public void testDeleteGroup() throws Exception {
 
-    goToGroupPage();
-    selectGroup();
-    deleteSelectGroup();
+    app.getNavigationHelper().goToGroupPage();
+    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().deleteSelectGroup();
     //переходим по ссылке страницы групп, выведенной после удаления
-    wd.findElement(By.linkText("group page")).click();
+    app.wd.findElement(By.linkText("group page")).click();
 
   }
 
