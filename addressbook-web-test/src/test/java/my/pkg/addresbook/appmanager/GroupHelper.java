@@ -20,7 +20,7 @@ public class GroupHelper extends HelperBase{
     NoClickChangeElemText(By.name("group_footer"), groupData.getGroupFooter());
   }
 
-  public void initGoupCreation() {
+  public void initGroupCreation() {
     clickElem(By.name("new"));
   }
 
@@ -32,5 +32,12 @@ public class GroupHelper extends HelperBase{
 
   public void selectGroup() {
     clickElem(By.name("selected[]"));
+  }
+
+  public void initModifyGroup() { clickElem(By.name("edit"));
+
+  }
+
+  public void submitModifyGroupForm() {clickElem(By.name("update"));
   }
 }
