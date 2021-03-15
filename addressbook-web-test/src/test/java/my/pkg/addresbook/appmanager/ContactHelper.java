@@ -14,6 +14,7 @@ public class ContactHelper extends HelperBase{
   }
 
   public void fillContactData(ContactData contactData) {
+
     ClickChangeElemText(By.name("firstname"), contactData.getFirstName());
     ClickChangeElemText(By.name("middlename"), contactData.getMiddleName());
     NoClickChangeElemText(By.name("lastname"), contactData.getLastName());
@@ -89,5 +90,15 @@ public class ContactHelper extends HelperBase{
 
 
   public void ConfirmContactDel() { wd.switchTo().alert().accept();
+  }
+
+  public boolean isContactThere() {
+    return isElementPresent(By.name("selected[]"));
+  }
+
+  public void createContact(ContactData contact) {
+    clickElem(By.linkText("add new"));
+    fillContactData(contact);
+    clickElem(By.linkText("home"));
   }
 }
