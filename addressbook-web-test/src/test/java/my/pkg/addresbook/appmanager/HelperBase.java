@@ -43,9 +43,10 @@ public class HelperBase {
   //ищем есть ли элемент на странице
   public boolean isElementPresent(By locator){
    try{
-     return true;
      wd.findElement(locator);
-   }catch (NoSuchElementException){
+     return true;
+
+   }catch (NoSuchElementException ex){
      return false;    }
   }
 }
