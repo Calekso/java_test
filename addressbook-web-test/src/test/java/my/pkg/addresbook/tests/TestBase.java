@@ -7,7 +7,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-  protected final AppManager app = new AppManager(BrowserType.IEXPLORE);
+  protected final AppManager app = new AppManager(BrowserType.FIREFOX);
 
   @BeforeMethod(alwaysRun = true)
   public void setUp() throws Exception {

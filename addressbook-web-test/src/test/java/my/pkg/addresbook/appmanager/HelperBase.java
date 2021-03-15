@@ -2,6 +2,7 @@ package my.pkg.addresbook.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
@@ -16,8 +17,13 @@ public class HelperBase {
   }
 
   public void NoClickChangeElemText(By locator, String text) {
-    wd.findElement(locator).clear();
-    wd.findElement(locator).sendKeys(text);
+    if (text != null) {
+      String elementText = wd.findElement(locator).getAttribute("value");
+      if (! text.equals(elementText)) {
+        wd.findElement(locator).clear();
+        wd.findElement(locator).sendKeys(text);
+      }
+    }
   }
 
   public void ClickChangeElemText(By locator, String text) {
@@ -32,5 +38,14 @@ public class HelperBase {
     } catch (NoAlertPresentException e) {
       return false;
     }
+  }
+
+  //ищем есть ли элемент на странице
+  public boolean isElementPresent(By locator){
+   try{
+     return true;
+     wd.findElement(locator);
+   }catch (NoSuchElementException){
+     return false;    }
   }
 }
