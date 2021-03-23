@@ -5,22 +5,30 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.HashSet;
+import java.util.List;
+
 public class GroupModifyTest extends TestBase {
 
   @Test
   public void testModifyGroup() throws Exception {
 
     app.getNavigationHelper().goToGroupPage();
-    int before = app.getGroupHelper().GroupCount();
     if (! app.getGroupHelper().isGroupThere()){
       app.getGroupHelper().createGroup(new GroupData("test1", null, "test3"));
     }
-    app.getGroupHelper().selectGroup(before - 1);
+    List<GroupData> before = app.getGroupHelper().getGroupList();
+    app.getGroupHelper().selectGroup(before.size() - 1);
     app.getGroupHelper().initModifyGroup();
-    app.getGroupHelper().fillGroupForm(new GroupData("test1-modify", "test2-modify", "test3-modify"));
+    GroupData group = new GroupData(before.get(before.size() - 1).getId(), "test1-modify", "test2-modify", "test3-modify");
+    app.getGroupHelper().fillGroupForm(group);
     app.getGroupHelper().submitModifyGroupForm();
     app.wd.findElement(By.linkText("group page")).click();
-    int after = app.getGroupHelper().GroupCount();
-    Assert.assertEquals(after, before);
+    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Assert.assertEquals(after.size(), before.size());
+
+    before.remove(before.size() - 1);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(after), new HashSet<Object>(before));
   }
 }
