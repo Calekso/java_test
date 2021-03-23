@@ -17,7 +17,7 @@ public class DeleteGroupTest extends TestBase {
     if (! app.getGroupHelper().isGroupThere()){
       app.getGroupHelper().createGroup(new GroupData("test1", null, "test3"));
     }
-    app.getGroupHelper().selectGroup();
+    app.getGroupHelper().selectGroup(before - 1);
     app.getGroupHelper().deleteSelectGroup();
     //переходим по ссылке страницы групп, выведенной после удаления
     app.wd.findElement(By.linkText("group page")).click();
