@@ -5,7 +5,11 @@ import my.pkg.addresbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
 
@@ -100,5 +104,18 @@ public class ContactHelper extends HelperBase{
     clickElem(By.linkText("add new"));
     fillContactData(contact);
     clickElem(By.linkText("home"));
+  }
+
+  public List<ContactData> getContactList() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements){
+      String name = element.findElements(By.tagName("td")).get(2).getText();
+      String lastName = element.findElements(By.tagName("td")).get(1).getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      ContactData contact = new ContactData(name, null, lastName, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      contacts.add(contact);
+    }
+    return contacts;
   }
 }

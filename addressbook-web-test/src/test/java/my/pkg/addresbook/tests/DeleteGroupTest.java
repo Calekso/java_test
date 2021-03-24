@@ -22,6 +22,7 @@ public class DeleteGroupTest extends TestBase {
     app.getGroupHelper().deleteSelectGroup();
     //переходим по ссылке страницы групп, выведенной после удаления
     app.wd.findElement(By.linkText("group page")).click();
+
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() - 1);//сравнить размер списков
 

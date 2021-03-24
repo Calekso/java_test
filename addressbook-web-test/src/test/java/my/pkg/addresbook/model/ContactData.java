@@ -1,6 +1,7 @@
 package my.pkg.addresbook.model;
 
 public class ContactData {
+  private int id;
   private final String firstName;
   private final String middleName;
   private final String lastName;
@@ -25,6 +26,7 @@ public class ContactData {
   private final String notes;
 
   public ContactData(String firstName, String middleName, String lastName, String nickName, String title, String comany, String address, String homePhone, String mobilePhone, String workPhone, String fax, String eMailOne, String eMailTwo, String eMailThree, String homePage, String birthDay, String birthMonth, String birthYear, String groupName, String addressTwo, String phoneTwo, String notes) {
+    this.id = Integer.MAX_VALUE;
     this.firstName = firstName;
     this.middleName = middleName;
     this.lastName = lastName;
@@ -48,6 +50,33 @@ public class ContactData {
     this.phoneTwo = phoneTwo;
     this.notes = notes;
   }
+  public ContactData(int id, String firstName, String middleName, String lastName, String nickName, String title, String comany, String address, String homePhone, String mobilePhone, String workPhone, String fax, String eMailOne, String eMailTwo, String eMailThree, String homePage, String birthDay, String birthMonth, String birthYear, String groupName, String addressTwo, String phoneTwo, String notes) {
+    this.id = id;
+    this.firstName = firstName;
+    this.middleName = middleName;
+    this.lastName = lastName;
+    this.nickName = nickName;
+    this.title = title;
+    this.company = comany;
+    this.address = address;
+    this.homePhone = homePhone;
+    this.mobilePhone = mobilePhone;
+    this.workPhone = workPhone;
+    this.fax = fax;
+    this.eMailOne = eMailOne;
+    this.eMailTwo = eMailTwo;
+    this.eMailThree = eMailThree;
+    this.homePage = homePage;
+    this.birthDay = birthDay;
+    this.birthMonth = birthMonth;
+    this.birthYear = birthYear;
+    this.groupName = groupName;
+    this.addressTwo = addressTwo;
+    this.phoneTwo = phoneTwo;
+    this.notes = notes;
+  }
+
+  public int getId() { return id;  }
 
   public String getFirstName() {
     return firstName;
@@ -135,5 +164,32 @@ public class ContactData {
 
   public String getNotes() {
     return notes;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+    return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = firstName != null ? firstName.hashCode() : 0;
+    result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+    return result;
+  }
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            '}';
   }
 }
