@@ -1,12 +1,12 @@
 package my.pkg.addresbook.model;
 
 public class GroupData {
-  private final String id;
+  private int id;
   private final String groupName;
   private final String groupHeader;
   private final String groupFooter;
 
-  public GroupData(String id, String groupName, String groupHeader, String groupFooter) {
+  public GroupData(int id, String groupName, String groupHeader, String groupFooter) {
     this.id = id;
     this.groupName = groupName;
     this.groupHeader = groupHeader;
@@ -14,7 +14,7 @@ public class GroupData {
   }
 
   public GroupData(String groupName, String groupHeader, String groupFooter) {
-    this.id = null;
+    this.id = 0;
     this.groupName = groupName;
     this.groupHeader = groupHeader;
     this.groupFooter = groupFooter;
@@ -27,13 +27,13 @@ public class GroupData {
 
     GroupData groupData = (GroupData) o;
 
-    if (id != null ? !id.equals(groupData.id) : groupData.id != null) return false;
+    if (id != groupData.id) return false;
     return groupName != null ? groupName.equals(groupData.groupName) : groupData.groupName == null;
   }
 
   @Override
   public int hashCode() {
-    int result = id != null ? id.hashCode() : 0;
+    int result = id;
     result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
     return result;
   }
@@ -46,8 +46,12 @@ public class GroupData {
             '}';
   }
 
-  public String getId() {
+  public int getId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   public String getGroupName() {
