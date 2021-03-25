@@ -1,5 +1,6 @@
 package my.pkg.addresbook.tests;
 
+import my.pkg.addresbook.appmanager.ContactHelper;
 import my.pkg.addresbook.model.ContactData;
 import my.pkg.addresbook.model.GroupData;
 import org.testng.Assert;
@@ -23,9 +24,9 @@ public class CreateContactTest extends TestBase{
     Assert.assertEquals(after.size(), before.size() + 1);
 
     before.add(newContact);
-    Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-    before.sort(byId);
-    after.sort(byId);
+    Comparator<ContactData> byNameLastName = new ContactHelper.LastNameComparator().thenComparing(new ContactHelper.NameComparator());
+    before.sort(byNameLastName);
+    after.sort(byNameLastName);
     Assert.assertEquals(before, after);
 
   }

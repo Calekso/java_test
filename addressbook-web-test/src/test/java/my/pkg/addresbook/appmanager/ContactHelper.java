@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ContactHelper extends HelperBase{
@@ -78,14 +79,18 @@ public class ContactHelper extends HelperBase{
     NoClickChangeElemText(By.name("notes"), contactData.getNotes());
    }
 
-  public void initModifyContact() {
-    clickElem(By.xpath("//img[@alt='Edit']"));
+  public void initModifyContact(int index) {
+   wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+   //clickElem(By.xpath("//img[@alt='Edit']"));
   }
 
   public void submitModifyContact() { clickElem(By.name("update"));
   }
 
-  public void ChoseContact() {clickElem(By.name("selected[]"));
+  public void ChoseContact(int index) {
+    wd.findElements(By.name("selected[]")).get(index).click();
+   // clickElem(By.name("selected[]"));
+
 
   }
 
@@ -113,9 +118,27 @@ public class ContactHelper extends HelperBase{
       String name = element.findElements(By.tagName("td")).get(2).getText();
       String lastName = element.findElements(By.tagName("td")).get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData(name, null, lastName, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      ContactData contact = new ContactData( name, null, lastName, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       contacts.add(contact);
     }
     return contacts;
+  }
+
+
+  public static class NameComparator implements Comparator<ContactData> {
+
+      public int compare(ContactData a, ContactData b){
+
+        return a.getFirstName().compareTo(b.getFirstName());
+
+    }
+  }
+  public static class LastNameComparator implements Comparator<ContactData> {
+
+    public int compare(ContactData a, ContactData b){
+
+      return a.getLastName().compareTo(b.getLastName());
+
+    }
   }
 }
