@@ -12,7 +12,7 @@ import java.util.List;
 public class ContactModifyTest extends TestBase{
 
 
-  @Test
+  @Test (enabled = false)
   public void testContactModify() throws Exception {
     if (! app.getContactHelper().isContactThere()){
       app.getContactHelper().createContact(new ContactData("TestName", "TestMiName", "TestLastName", "TestNick", "Test", "MyComp", "TestAddres", "-", "79991234567", "-", "-", "mail@mail.ru", "-", "-", "-", "9", "July", "2005", "[none]", "unknownAddress", "-", "test"));

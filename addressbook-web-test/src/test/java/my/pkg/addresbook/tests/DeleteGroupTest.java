@@ -3,6 +3,7 @@ package my.pkg.addresbook.tests;
 import my.pkg.addresbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -10,25 +11,28 @@ import java.util.List;
 
 public class DeleteGroupTest extends TestBase {
 
+  @BeforeMethod
+  public void ensurePreconditions(){
+    app.goTo().groupPage();
+    if (app.group().list().size() == 0){
+      app.group().create(new GroupData("test1", null, "test3"));
+    }
+  }
+
   @Test
   public void testDeleteGroup() throws Exception {
-    app.getNavigationHelper().goToGroupPage();
-    //проверяем есть ли группа для удаления и создаем ее если нет
-    if (! app.getGroupHelper().isGroupThere()){
-      app.getGroupHelper().createGroup(new GroupData("test1", null, "test3"));
-    }
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    app.getGroupHelper().selectGroup(before.size() - 1);
-    app.getGroupHelper().deleteSelectGroup();
-    //переходим по ссылке страницы групп, выведенной после удаления
-    app.wd.findElement(By.linkText("group page")).click();
+    List<GroupData> before = app.group().list();
+    int index = before.size() - 1;
+    app.group().delete(index);
 
-    List<GroupData> after = app.getGroupHelper().getGroupList();
-    Assert.assertEquals(after.size(), before.size() - 1);//сравнить размер списков
+    List<GroupData> after = app.group().list();
+    Assert.assertEquals(after.size(), index);//сравнить размер списков
 
-    before.remove(before.size() - 1);
+    before.remove(index);
     Assert.assertEquals(before, after);//сравнить списки групп по названию
 
   }
+
+
 
 }
