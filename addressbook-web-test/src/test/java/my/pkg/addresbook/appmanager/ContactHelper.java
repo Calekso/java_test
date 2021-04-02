@@ -80,7 +80,7 @@ public class ContactHelper extends HelperBase{
    }
 
   public void initModifyContact(int index) {
-   wd.findElements(By.xpath("//img[@alt='Edit']")).get(index).click();
+   wd.findElement(By.xpath("//a[@href='edit.php?id="+index+"']")).click();
    //clickElem(By.xpath("//img[@alt='Edit']"));
   }
 
@@ -88,7 +88,8 @@ public class ContactHelper extends HelperBase{
   }
 
   public void ChoseContact(int index) {
-    wd.findElements(By.name("selected[]")).get(index).click();
+    //wd.findElements(By.name("selected[]")).get(index).click();
+    wd.findElement(By.xpath("//input[@id="+index+"]")).click();
    // clickElem(By.name("selected[]"));
 
 
@@ -118,7 +119,7 @@ public class ContactHelper extends HelperBase{
       String name = element.findElements(By.tagName("td")).get(2).getText();
       String lastName = element.findElements(By.tagName("td")).get(1).getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-      ContactData contact = new ContactData( name, null, lastName, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+      ContactData contact = new ContactData( id, name, null, lastName, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
       contacts.add(contact);
     }
     return contacts;

@@ -49,4 +49,9 @@ public class HelperBase {
    }catch (NoSuchElementException ex){
      return false;    }
   }
+
+  public static int randomRange(int start, int end){
+    int randomInt = start + (int) (Math.random() * end);
+    return randomInt;
+  }
 }
