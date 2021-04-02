@@ -1,24 +1,31 @@
 package my.pkg.addresbook.model;
 
 public class GroupData {
-  private int id;
-  private final String groupName;
-  private final String groupHeader;
-  private final String groupFooter;
+  private int id = Integer.MAX_VALUE;
+  private String groupName;
+  private String groupHeader;
+  private String groupFooter;
 
-  public GroupData(int id, String groupName, String groupHeader, String groupFooter) {
+  public GroupData withName(String groupName) {
+    this.groupName = groupName;
+    return this;
+  }
+
+  public GroupData withHeader(String groupHeader) {
+    this.groupHeader = groupHeader;
+    return this;
+  }
+
+  public GroupData withFooter(String groupFooter) {
+    this.groupFooter = groupFooter;
+    return this;
+  }
+
+  public GroupData withId(int id) {
     this.id = id;
-    this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupFooter = groupFooter;
+    return this;
   }
 
-  public GroupData(String groupName, String groupHeader, String groupFooter) {
-    this.id = Integer.MAX_VALUE;
-    this.groupName = groupName;
-    this.groupHeader = groupHeader;
-    this.groupFooter = groupFooter;
-  }
 
   @Override
   public String toString() {
