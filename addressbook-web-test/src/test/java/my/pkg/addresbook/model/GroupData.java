@@ -6,6 +6,26 @@ public class GroupData {
   private String groupHeader;
   private String groupFooter;
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    GroupData groupData = (GroupData) o;
+
+    if (id != groupData.id) return false;
+    return groupName != null ? groupName.equals(groupData.groupName) : groupData.groupName == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
+    return result;
+  }
+
+
+
   public GroupData withName(String groupName) {
     this.groupName = groupName;
     return this;
@@ -41,21 +61,6 @@ public class GroupData {
 
   public void setId(int id) {
     this.id = id;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    GroupData groupData = (GroupData) o;
-
-    return groupName != null ? groupName.equals(groupData.groupName) : groupData.groupName == null;
-  }
-
-  @Override
-  public int hashCode() {
-    return groupName != null ? groupName.hashCode() : 0;
   }
 
   public String getGroupName() {

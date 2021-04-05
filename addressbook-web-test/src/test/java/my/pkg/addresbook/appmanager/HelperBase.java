@@ -6,13 +6,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 public class HelperBase {
-  protected WebDriver wd;
+  protected static WebDriver wd;
 
   public HelperBase(WebDriver wd) {
     this.wd = wd;
   }
 
-  public void clickElem(By locator) {
+  public static void clickElem(By locator) {
     wd.findElement(locator).click();
   }
 

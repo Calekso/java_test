@@ -1,40 +1,30 @@
 package my.pkg.addresbook.tests;
 
-import my.pkg.addresbook.appmanager.ContactHelper;
-import my.pkg.addresbook.appmanager.HelperBase;
 import my.pkg.addresbook.model.ContactData;
-import org.openqa.selenium.By;
-import org.testng.Assert;
+import my.pkg.addresbook.model.Contacts;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-public class ContactModifyTest extends TestBase{
+public class ContactModifyTest extends TestBase {
 
 
-  @Test (enabled = true)
-  public void testContactModify() throws Exception {
-    if (! app.getContactHelper().isContactThere()){
-      app.getContactHelper().createContact(new ContactData("TestName", "TestMiName", "TestLastName", "TestNick", "Test", "MyComp", "TestAddres", "-", "79991234567", "-", "-", "mail@mail.ru", "-", "-", "-", "9", "July", "2005", "[none]", "unknownAddress", "-", "test"));
+    @Test(enabled = true)
+    public void testContactModify() throws Exception {
+        if (!app.contact().isContactThere()) {
+            app.contact().createContact(new ContactData().withName("test1").withLastName("test2").withMiddleName("test3"));
+        }
+        Contacts before = app.contact().all();
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData()
+                .withId(modifiedContact.getId()).withLastName("mod1").withName("mod2");
+        app.contact().modify(contact);
+
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size()));
+        assertThat(after, equalTo(before.Without(modifiedContact).WithAdded(contact)));
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    int index = HelperBase.randomRange(0, before.size() - 1);
-    int id = before.get(index).getId();
-    ContactData newContact = new ContactData(before.get(index).getId(),"Mod",  "Mod", "Mod", "Mod",  "Mod",  "Mod", "Mod", "Mod", "79991234567", "-", "-",  "Mod", "-", "-", "-", "9", "July", "2007",  "Mod", "Mod", "-", "Mod");
-    app.getContactHelper().initModifyContact(id);
-    app.getContactHelper().fillModifyContactData(newContact);
-    app.getContactHelper().submitModifyContact();
-    app.wd.findElement(By.linkText("home page")).click();
 
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(), before.size());
 
-    before.remove(index);
-    before.add(newContact);
-    Comparator<ContactData> byNameLastName = new ContactHelper.LastNameComparator().thenComparing(new ContactHelper.NameComparator());
-    before.sort(byNameLastName);
-    after.sort(byNameLastName);
-    Assert.assertEquals(after, before);
-  }
 }

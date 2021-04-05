@@ -53,7 +53,7 @@ public class AppManager {
         return groupHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
         return contactHelper;
     }
 

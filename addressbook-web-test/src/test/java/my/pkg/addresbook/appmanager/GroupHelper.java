@@ -1,12 +1,15 @@
 package my.pkg.addresbook.appmanager;
 
 import my.pkg.addresbook.model.GroupData;
+import my.pkg.addresbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase{
 
@@ -38,6 +41,10 @@ public class GroupHelper extends HelperBase{
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
+  public void selectGroupById(int id) {
+    wd.findElement(By.xpath("//input[@value='"+id+"']")).click();
+  }
+
   public void initModifyGroup() { clickElem(By.name("edit"));
 
   }
@@ -54,19 +61,14 @@ public class GroupHelper extends HelperBase{
   }
 
 
-  public void modify(int index, GroupData group) {
-    selectGroup(index);
+  public void modify(GroupData group) {
+    selectGroupById(group.getId());
     initModifyGroup();
     fillGroupForm(group);
     submitModifyGroupForm();
   }
 
-  public void delete(int index) {
-    selectGroup(index);
-    deleteSelectGroup();
-    //переходим по ссылке страницы групп, выведенной после удаления
-    wd.findElement(By.linkText("group page")).click();
-  }
+
   public boolean isGroupThere() {
      return isElementPresent(By.name("selected[]"));
   }
@@ -75,8 +77,10 @@ public class GroupHelper extends HelperBase{
       return wd.findElements(By.name("selected[]")).size();
     }
 
-  public List<GroupData> list() {
-    List<GroupData> groups = new ArrayList<GroupData>();
+
+
+  public Groups all() {
+    Groups groups = new Groups();
     List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element : elements){
       String name = element.getText();
@@ -85,5 +89,12 @@ public class GroupHelper extends HelperBase{
       groups.add(group);
     }
     return groups;
+  }
+
+  public void delete(GroupData group) {
+    selectGroupById(group.getId());
+    deleteSelectGroup();
+    //переходим по ссылке страницы групп, выведенной после удаления
+    wd.findElement(By.linkText("group page")).click();
   }
 }

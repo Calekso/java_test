@@ -1,33 +1,27 @@
 package my.pkg.addresbook.tests;
 
-import my.pkg.addresbook.appmanager.ContactHelper;
 import my.pkg.addresbook.model.ContactData;
-import org.testng.Assert;
+import my.pkg.addresbook.model.Contacts;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
-public class CreateContactTest extends TestBase{
+public class CreateContactTest extends TestBase {
 
 
-  @Test (enabled = true)
-  public void testContactCreation() throws Exception {
+    @Test(enabled = true)
+    public void testContactCreation() throws Exception {
 
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.goTo().goToContactAddPage();
-    ContactData newContact = new ContactData("TestName", "TestMiName", "TestLastName", "TestNick", "Test", "MyComp", "TestAddres", "-", "79991234567", "-", "-", "mail@mail.ru", "-", "-", "-", "9", "July", "2005", "[none]", "unknownAddress", "-", "test");
-    app.getContactHelper().fillContactData(newContact);
-    app.goTo().goToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
-    Assert.assertEquals(after.size(), before.size() + 1);
-
-    before.add(newContact);
-    Comparator<ContactData> byNameLastName = new ContactHelper.LastNameComparator().thenComparing(new ContactHelper.NameComparator());
-    before.sort(byNameLastName);
-    after.sort(byNameLastName);
-    Assert.assertEquals(before, after);
-
-  }
+        Contacts before = app.contact().all();
+        app.goTo().goToContactAddPage();
+        ContactData newContact = new ContactData().withName("test1").withLastName("test2").withMiddleName("test3");
+        app.contact().fillContactData(newContact);
+        app.goTo().goToHomePage();
+        Contacts after = app.contact().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
+        assertThat(after, equalTo(
+                before.WithAdded(newContact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    }
 
 }
