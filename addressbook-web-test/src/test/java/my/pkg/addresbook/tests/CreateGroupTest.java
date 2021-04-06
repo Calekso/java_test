@@ -23,7 +23,18 @@ public class CreateGroupTest extends TestBase{
     assertThat(after, equalTo(
             before.WithAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
+  @Test
+  public void testBadGroupCreation() throws Exception {
 
+    app.goTo().groupPage();
+    Groups before = app.group().all();
+    GroupData group = new GroupData().withName("test2'");
+    app.group().create(group);
+    app.goTo().groupPage();
+    assertThat(app.group().getGroupCount(), equalTo(before.size()));
+    Groups after = app.group().all();
+    assertThat(after, equalTo(before));
+  }
 
 
 }

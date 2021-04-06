@@ -35,8 +35,9 @@ public class GroupModifyTest extends TestBase {
             .withId(modifiedGroup.getId()).withName("test2-mod").withFooter("test3-mod").withHeader("test4-mod");
     app.group().modify(group);
     app.wd.findElement(By.linkText("group page")).click();
+    assertThat(app.group().getGroupCount(), equalTo(before.size()));
     Groups after = app.group().all();
-    assertEquals(after.size(), before.size());
+
     assertThat(after, equalTo(before.Without(modifiedGroup).WithAdded(group)));
   }
 
