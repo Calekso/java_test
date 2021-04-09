@@ -18,7 +18,8 @@ public class ContactPhoneTest extends TestBase {
         if (!app.contact().isContactThere()) {
             app.contact().createContact(new ContactData().withName("test1").withLastName("test2").withMiddleName("test3")
                     .withHomePhone("1234").withMobilePhone("2345").withWorkPhone("3456")
-                    .withEmail("123@123.ru").withEmail2("234@234.ru").withEmail3("345@345.ru"));
+                    .withEmail("123@123.ru").withEmail2("234@234.ru").withEmail3("345@345.ru")
+                    .withAddress("Test testo test"));
         }
        app.goTo().goToHomePage();
        ContactData contact = app.contact().all().iterator().next();
