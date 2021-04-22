@@ -14,10 +14,31 @@ dependencies {
     implementation 'dev.galasa:gson:2.8.5'
 }
 
-
-
-test {
-    useTestNG()
+task testContacts (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testContacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
 }
+
+task testGroups (type: Test) {
+    useTestNG {
+        suites 'src/test/resources/testGroups.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperty 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperty 'target', "${target}"
+    }
+}
+
+
+
 
 
