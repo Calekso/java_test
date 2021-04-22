@@ -21,7 +21,7 @@ public class ContactHelper extends HelperBase {
         ClickChangeElemText(By.name("firstname"), contactData.getFirstName());
         ClickChangeElemText(By.name("middlename"), contactData.getMiddleName());
         NoClickChangeElemText(By.name("lastname"), contactData.getLastName());
-        NoClickChangeElemText(By.name("photo"), contactData.getPhoto().getAbsolutePath());
+        NoClickChangeElemText(By.name("photo"), contactData.getPhoto());
 
         clickElem(By.xpath("(//input[@name='submit'])[2]"));
     }
