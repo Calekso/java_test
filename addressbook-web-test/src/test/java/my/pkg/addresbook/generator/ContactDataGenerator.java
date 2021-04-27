@@ -41,7 +41,7 @@ public class ContactDataGenerator {
         List<ContactData> contacts = generateContacts(count);
         if  (format.equals("json")){
             saveAsJSON(contacts, new File(file));
-        }else System.out.println("Не поддерживается формат" + format);
+        }else System.out.println("Не поддерживается формат " + format);
     }
 
     private void saveAsJSON(List<ContactData> contacts, File file) throws IOException {
@@ -54,7 +54,7 @@ public class ContactDataGenerator {
 
 
     private List<ContactData> generateContacts(int count) {
-        String photo = new File("src/test/resources/23.jpg").getAbsolutePath();
+        String photo = "src/test/resources/23.jpg";
         List<ContactData> contacts = new ArrayList<ContactData>();
         for (int i = 0; i < count; i++){
             contacts.add(new ContactData().withName(String.format("name %s", i))

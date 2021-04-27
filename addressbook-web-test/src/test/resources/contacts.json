@@ -6,7 +6,7 @@
     "homePhone": "1234",
     "mobilePhone": "2345",
     "workPhone": "3456",
-    "photo": "C:\\Users\\Tig\\Desktop\\rep\\addressbook-web-test\\src\\test\\resources\\23.jpg",
+    "photo": "src/test/resources/23.jpg",
     "email": "123@123.ru",
     "email2": "234@123.ru",
     "email3": "345@123.ru",
@@ -19,23 +19,10 @@
     "homePhone": "2468",
     "mobilePhone": "4690",
     "workPhone": "6912",
-    "photo": "C:\\Users\\Tig\\Desktop\\rep\\addressbook-web-test\\src\\test\\resources\\23.jpg",
+    "photo": "src/test/resources/23.jpg",
     "email": "246@123.ru",
     "email2": "468@123.ru",
     "email3": "690@123.ru",
     "address": "Test testo test 1  \n 2 string \n 3 string"
-  },
-  {
-    "firstName": "name 2",
-    "middleName": "middleName 2",
-    "lastName": "lastName 2",
-    "homePhone": "3702",
-    "mobilePhone": "7035",
-    "workPhone": "10368",
-    "photo": "C:\\Users\\Tig\\Desktop\\rep\\addressbook-web-test\\src\\test\\resources\\23.jpg",
-    "email": "369@123.ru",
-    "email2": "702@123.ru",
-    "email3": "1035@123.ru",
-    "address": "Test testo test 2  \n 2 string \n 3 string"
   }
 ]

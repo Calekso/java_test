@@ -23,7 +23,7 @@ public class ContactData {
     private String workPhone;
 
     public String getPhoto() {
-        return photo;
+        return new File(photo).getAbsolutePath();
     }
 
     public ContactData withPhoto(String photo) {
