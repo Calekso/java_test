@@ -18,6 +18,29 @@ public class GroupData {
   @Id
   @Column(name = "group_id")
   private int id = Integer.MAX_VALUE;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    GroupData groupData = (GroupData) o;
+
+    if (id != groupData.id) return false;
+    if (groupName != null ? !groupName.equals(groupData.groupName) : groupData.groupName != null) return false;
+    if (groupHeader != null ? !groupHeader.equals(groupData.groupHeader) : groupData.groupHeader != null) return false;
+    return groupFooter != null ? groupFooter.equals(groupData.groupFooter) : groupData.groupFooter == null;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
+    result = 31 * result + (groupHeader != null ? groupHeader.hashCode() : 0);
+    result = 31 * result + (groupFooter != null ? groupFooter.hashCode() : 0);
+    return result;
+  }
+
   @Expose
   @Column(name = "group_name")
   private String groupName;
@@ -29,25 +52,6 @@ public class GroupData {
   @Column(name = "group_footer")
   @Type(type = "text")
   private String groupFooter;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    GroupData groupData = (GroupData) o;
-
-    if (id != groupData.id) return false;
-    return groupName != null ? groupName.equals(groupData.groupName) : groupData.groupName == null;
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (groupName != null ? groupName.hashCode() : 0);
-    return result;
-  }
-
 
 
   public GroupData withName(String groupName) {
