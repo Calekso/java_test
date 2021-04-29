@@ -1,25 +1,39 @@
 package my.pkg.addresbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
-
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String firstName;
     @Expose
     private String middleName;
     @Expose
+    @Column(name = "lastname")
     private String lastName;
-
-
+    @Transient
+    private String group;
+    @Transient
     private String allPhones;
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
 
     public String getPhoto() {
@@ -31,6 +45,8 @@ public class ContactData {
         return this;
     }
     @Expose
+    @Column(name = "photo")
+    @Type(type = "text")
     private String photo;
 
     public ContactData withAllPhones(String allPhones) {
@@ -42,15 +58,19 @@ public class ContactData {
         this.allEmails = allEmails;
         return this;
     }
-
+    @Transient
     private String allEmails;
     @Expose
+    @Type(type = "text")
     private String email;
     @Expose
+    @Type(type = "text")
     private String email2;
     @Expose
+    @Type(type = "text")
     private String email3;
     @Expose
+    @Type(type = "text")
     private String address;
 
     public String getAddress() {
