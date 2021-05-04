@@ -11,6 +11,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.util.List;
 
 public class HBConnectionTest {
@@ -40,12 +41,14 @@ public class HBConnectionTest {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         List<ContactData> result = session.createQuery("from ContactData where deprecated = '0000-00-00'").list();
-        for (ContactData group : result) {
-            System.out.println(group);
-        }
+
         session.getTransaction().commit();
         session.close();
 
+        for (ContactData contact : result) {
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+        }
 
     }
 }

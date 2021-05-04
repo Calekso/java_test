@@ -5,6 +5,8 @@ import my.pkg.addresbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -16,6 +18,26 @@ public class ContactHelper extends HelperBase {
         super(wd);
     }
 
+    public void fillContactData(ContactData contactData, boolean creation) {
+
+        ClickChangeElemText(By.name("firstname"), contactData.getFirstName());
+        ClickChangeElemText(By.name("middlename"), contactData.getMiddleName());
+        NoClickChangeElemText(By.name("lastname"), contactData.getLastName());
+        NoClickChangeElemText(By.name("photo"), contactData.getPhoto());
+
+        if (creation) {
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getGroupName());
+            }
+        }else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
+
+
+        clickElem(By.xpath("(//input[@name='submit'])[2]"));
+    }
+
     public void fillContactData(ContactData contactData) {
 
         ClickChangeElemText(By.name("firstname"), contactData.getFirstName());
@@ -23,13 +45,14 @@ public class ContactHelper extends HelperBase {
         NoClickChangeElemText(By.name("lastname"), contactData.getLastName());
         NoClickChangeElemText(By.name("photo"), contactData.getPhoto());
 
-        clickElem(By.xpath("(//input[@name='submit'])[2]"));
+            clickElem(By.xpath("(//input[@name='submit'])[2]"));
     }
 
     public void fillModifyContactData(ContactData contactData) {
         ClickChangeElemText(By.name("firstname"), contactData.getFirstName());
         ClickChangeElemText(By.name("middlename"), contactData.getMiddleName());
         NoClickChangeElemText(By.name("lastname"), contactData.getLastName());
+
 
     }
 
@@ -125,5 +148,10 @@ public class ContactHelper extends HelperBase {
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
                 .withEmail(email).withEmail2(email2).withEmail3(email3).withAddress(address);
 
+    }
+
+    public void addToGroup(ContactData contactAddedGroup) {
+        wd.findElement(By.xpath("//input[@value='"+contactAddedGroup.getId()+"']")).click();
+        wd.findElement(By.xpath("//input[@value='Add to']")).click();
     }
 }
