@@ -12,11 +12,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.MatchResult;
 
 public class AppManager {
     private final Properties properties;
-    public WebDriver wd;
+    private WebDriver wd;
     private String browser;
+    private RgistrationHelper registrationHelper;
 
 
     public AppManager(String browser) {
@@ -28,24 +30,46 @@ public class AppManager {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
-        if (browser.equals(BrowserType.FIREFOX)) {
-            wd = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            wd = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IEXPLORE)) {
-            wd = new InternetExplorerDriver();
-        } else {
-            System.out.println("Unknown browser, use FireFox");
-            wd = new FirefoxDriver();
-        }
-        wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("web.baseURL"));
-       }
+      }
 
 
     public void stop() {
-        wd.quit();
+        if (wd != null) {
+            wd.quit();
+        }
     }
 
+public HttpSession newSession() {
+        return new HttpSession(this);
+}
 
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
+    public RgistrationHelper registration() {
+        if (registrationHelper == null) {
+            registrationHelper = new RgistrationHelper(this);
+        }
+        return registrationHelper;
+        }
+
+    public WebDriver getDriver() {
+        if (wd == null){
+            if (browser.equals(BrowserType.FIREFOX)) {
+                wd = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.CHROME)) {
+                wd = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IEXPLORE)) {
+                wd = new InternetExplorerDriver();
+            } else {
+                System.out.println("Unknown browser, use FireFox");
+                wd = new FirefoxDriver();
+            }
+            wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+            wd.get(properties.getProperty("web.baseUrl"));
+        }
+        return wd;
+
+    }
 }
