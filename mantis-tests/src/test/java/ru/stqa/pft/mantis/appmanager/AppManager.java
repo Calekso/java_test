@@ -19,6 +19,9 @@ public class AppManager {
     private WebDriver wd;
     private String browser;
     private RgistrationHelper registrationHelper;
+    private FtpHelper ftp;
+    private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
 
 
     public AppManager(String browser) {
@@ -26,7 +29,7 @@ public class AppManager {
         properties = new Properties();
        }
 
-    public void init() throws IOException { //equals - сравнение объектов, строк...
+    public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
@@ -54,6 +57,13 @@ public HttpSession newSession() {
         return registrationHelper;
         }
 
+       public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
+
     public WebDriver getDriver() {
         if (wd == null){
             if (browser.equals(BrowserType.FIREFOX)) {
@@ -72,4 +82,19 @@ public HttpSession newSession() {
         return wd;
 
     }
+
+    public MailHelper mail() {
+        if (mailHelper == null){
+            mailHelper = new MailHelper(this);
+        }
+        return mailHelper;
+    }
+
+    public JamesHelper james() {
+        if (jamesHelper == null){
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
 }

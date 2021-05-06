@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.testng.Assert.assertTrue;
 
 public class DellContactFromGroupTest extends TestBase {
 
@@ -22,22 +23,23 @@ public class DellContactFromGroupTest extends TestBase {
             app.group().create(new GroupData().withName("test1"));
 
         }
+        if (app.db().contactsInGroup().size() == 0){
+            app.goTo().goToHomePage();
+            app.contact().addToGroup(app.db().contacts().iterator().next());
+        }
     }
 
 
     @Test(enabled = true)
     public void testDellContactFromGroup() throws Exception {
+
+        Contacts before = app.db().contactsInGroup();
         app.goTo().goToHomePage();
-        Groups groups = app.db().groups();
-        GroupData group = groups.iterator().next();
-        Contacts before = app.db().contacts();
         ContactData contact = before.iterator().next();
-        ContactData contactAddedGroup = contact.inGroup(group);
-
-        app.contact().addToGroup(contactAddedGroup);
-
+        GroupData group = contact.getGroups().iterator().next();
+         app.contact().dellFromGroup(contact, group);
         Contacts after = app.db().contacts();
-        assertThat(after.size(), equalTo(before.size()));
-        assertThat(after, equalTo(before.Without(contact)));
+        assertTrue(after.iterator().next().getGroups().isEmpty());
+
     }
 }

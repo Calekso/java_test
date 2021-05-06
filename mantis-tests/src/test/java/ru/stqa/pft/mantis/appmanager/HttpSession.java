@@ -1,10 +1,13 @@
 package ru.stqa.pft.mantis.appmanager;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.client.LaxRedirectStrategy;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,16 +27,16 @@ public class HttpSession {
     }
 
     public boolean login(String username, String password) throws IOException {
-        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php");
-        List<BasicNameValuePair> params = new ArrayList<>();
+        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "login.php");
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", username));
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("secure_session", "on"));
         params.add(new BasicNameValuePair("return", "index.php"));
-        post.setEntity(new UrlEncodedFormEntity(params));
+        post.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
         CloseableHttpResponse response = httpclient.execute(post);
         String body = geTextForm(response);
-        return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+        return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
     }
 
     private String geTextForm(CloseableHttpResponse response) throws IOException {
@@ -47,7 +50,7 @@ public class HttpSession {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextForm(response);
-        return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+        return body.contains(String.format("<span class=\"user-info\">%s</span>", username));
 
     }
 }

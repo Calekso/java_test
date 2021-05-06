@@ -2,6 +2,7 @@ package my.pkg.addresbook.appmanager;
 
 import my.pkg.addresbook.model.ContactData;
 import my.pkg.addresbook.model.Contacts;
+import my.pkg.addresbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -153,5 +154,11 @@ public class ContactHelper extends HelperBase {
     public void addToGroup(ContactData contactAddedGroup) {
         wd.findElement(By.xpath("//input[@value='"+contactAddedGroup.getId()+"']")).click();
         wd.findElement(By.xpath("//input[@value='Add to']")).click();
+    }
+
+    public void dellFromGroup(ContactData contactDellGroup, GroupData group) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
+        wd.findElement(By.xpath("//input[@id='" + contactDellGroup.getId() + "']")).click();
+        wd.findElement(By.name("remove")).click();
     }
 }
