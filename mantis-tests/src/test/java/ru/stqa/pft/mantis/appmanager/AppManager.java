@@ -22,6 +22,7 @@ public class AppManager {
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
+    private PasswordChangeHelper passwordChangeHelper;
 
 
     public AppManager(String browser) {
@@ -97,4 +98,10 @@ public HttpSession newSession() {
         return jamesHelper;
     }
 
+    public PasswordChangeHelper passwordChange() {
+        if (passwordChangeHelper == null) {
+            passwordChangeHelper = new PasswordChangeHelper(this);
+        }
+        return passwordChangeHelper;
+    }
 }
