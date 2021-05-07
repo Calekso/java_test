@@ -23,6 +23,7 @@ public class AppManager {
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
     private PasswordChangeHelper passwordChangeHelper;
+    private SoapHelper soapHelper;
 
 
     public AppManager(String browser) {
@@ -103,5 +104,12 @@ public HttpSession newSession() {
             passwordChangeHelper = new PasswordChangeHelper(this);
         }
         return passwordChangeHelper;
+    }
+
+    public SoapHelper soap() {
+        if (soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
     }
 }

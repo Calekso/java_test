@@ -1,0 +1,36 @@
+apply plugin: 'java'
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    implementation 'org.testng:testng:7.4.0'
+}
+
+test {
+    useTestNG()
+}
+
+buildscript{
+    repositories{
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'no.nils:wsdl2java:0.9'
+    }
+}
+
+apply plugin: 'no.nils.wsdl2java'
+
+
+wsdl2java {
+    generatedWsdlDir = file("src/main/java")
+    wsdlDir = file("src/main/resources")
+    wsdlsToGenerate = [
+                          ['src/main/resources/ipservice.wsdl']
+    ]
+}

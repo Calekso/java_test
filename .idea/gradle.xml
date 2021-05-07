@@ -35,10 +35,28 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/example" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/example" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/mantis-tests" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/mantis-tests" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/soap-simple" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/soap-simple" />
           </set>
         </option>
       </GradleProjectSettings>
