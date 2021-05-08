@@ -52,15 +52,11 @@ public class AppManager {
                 wd = new FirefoxDriver();
             }
         } else {
-            System.setProperty("webdriver.chrome.driver","C:/Windows/System32/chromedriver.exe");
-            System.setProperty("webdriver.gecko.driver", "C:/Windows/System32/geckodriver.exe");
             DesiredCapabilities capabilities = new DesiredCapabilities().firefox();
             capabilities.setBrowserName(browser);
-            capabilities.setPlatform(Platform.WINDOWS);
-            capabilities.setCapability("marionette", true);
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
-        } 
+        }
 
         wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseURL"));
