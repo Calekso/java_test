@@ -60,7 +60,7 @@ public class AppManager {
             capabilities.setCapability("marionette", true);
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
-        }
+        } 
 
         wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseURL"));
