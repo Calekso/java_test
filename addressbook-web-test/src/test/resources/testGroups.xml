@@ -3,7 +3,7 @@
 <suite name="Suite1" verbose="1" >
     <test name="testGroups" >
         <classes>
-            <class name="my.pkg.addresbook.tests.CreateGroupTest" />
+            <class name="my.pkg.addresbook.tests.GroupModifyTest" />
         </classes>
     </test>
 
