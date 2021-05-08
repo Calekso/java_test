@@ -56,7 +56,7 @@ public class AppManager {
             System.setProperty("webdriver.gecko.driver", "C:/Windows/System32/geckodriver.exe");
             DesiredCapabilities capabilities = new DesiredCapabilities().firefox();
             capabilities.setBrowserName(browser);
-            capabilities.setPlatform(org.openqa.selenium.Platform.WINDOWS);
+            capabilities.setPlatform(Platform.WINDOWS);
             capabilities.setCapability("marionette", true);
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
