@@ -35,7 +35,7 @@ public class AppManager {
         properties = new Properties();
        }
 
-    public void init() throws IOException { //equals - сравнение объектов, строк...
+    public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         dbHelper = new DbHelper();
@@ -58,6 +58,7 @@ public class AppManager {
         }
 
         wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
+        wd.get(properties.getProperty("web.baseURL"));
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
         sessionHelper = new SessionHelper(wd);
