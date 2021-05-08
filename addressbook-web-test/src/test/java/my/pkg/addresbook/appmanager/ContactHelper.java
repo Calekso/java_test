@@ -12,6 +12,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -156,9 +157,26 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.xpath("//input[@value='Add to']")).click();
     }
 
+    public void addToGroup(ContactData contactAddedGroup, GroupData group) {
+        wd.findElement(By.xpath("//input[@value='"+contactAddedGroup.getId()+"']")).click();
+        wd.findElement(By.xpath("(//select[@name='to_group']/option[@value='" + group.getId() + "'])"));
+        wd.findElement(By.xpath("//input[@value='Add to']")).click();
+    }
+
+
     public void dellFromGroup(ContactData contactDellGroup, GroupData group) {
         new Select(wd.findElement(By.name("group"))).selectByValue(String.valueOf(group.getId()));
         wd.findElement(By.xpath("//input[@id='" + contactDellGroup.getId() + "']")).click();
         wd.findElement(By.name("remove")).click();
+    }
+
+    public ContactData сontactWithoutGroup (Contacts contacts) {
+        for (ContactData contact : contacts) {
+            Set<GroupData> contactInGroup = contact.getGroups();
+            if (contactInGroup.size() == 0) {
+                return contact;
+            }
+        }
+        return null;
     }
 }
