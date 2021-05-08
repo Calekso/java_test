@@ -37,9 +37,6 @@ task testContacts (type: Test) {
     if (project.hasProperty('verUI')) {
         systemProperty 'verUI', "${verUI}"
     }
-    if (project.hasProperty('webdriver.chrome.driver')) {
-        systemProperty 'webdriver.chrome.driver', "${webdriver.chrome.driver}"
-    }
 
 }
 
@@ -55,6 +52,9 @@ task testGroups (type: Test) {
     }
     if (project.hasProperty('verUI')) {
         systemProperty 'verUI', "${verUI}"
+    }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
     }
 }
 
