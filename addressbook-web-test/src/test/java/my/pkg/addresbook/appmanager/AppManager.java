@@ -52,9 +52,10 @@ public class AppManager {
                 wd = new FirefoxDriver();
             }
         } else {
-           // System.setProperty("webdriver.chrome.driver", "C://Windows/System32/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:/Windows/System32/chromedriver.exe");
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(browser);
+            capabilities.setPlatform(Platform.fromString(System.getProperty("platform", "win7")));
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
         }

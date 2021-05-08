@@ -31,9 +31,16 @@ task testContacts (type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+    if (project.hasProperty('platform')) {
+        systemProperty 'platform', "${platform}"
+    }
     if (project.hasProperty('verUI')) {
         systemProperty 'verUI', "${verUI}"
     }
+    if (project.hasProperty('webdriver.chrome.driver')) {
+        systemProperty 'webdriver.chrome.driver', "${webdriver.chrome.driver}"
+    }
+
 }
 
 task testGroups (type: Test) {
