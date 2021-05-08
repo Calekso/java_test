@@ -53,10 +53,9 @@ public class AppManager {
             }
         } else {
             System.setProperty("webdriver.chrome.driver", "C://Windows/System32/chromedriver.exe");
-            wd = new ChromeDriver();
-        //   DesiredCapabilities capabilities = new DesiredCapabilities().firefox();
-        //    capabilities.setBrowserName(browser);
-        //    wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
+            DesiredCapabilities capabilities = new DesiredCapabilities().chrome();
+            //capabilities.setBrowserName("chrome");
+            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
 
         }
 
